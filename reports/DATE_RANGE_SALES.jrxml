@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DATE_RANGE_SALES" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c4705dd4-5d49-4a7f-b37f-d7604938bc2c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="START_DATE" class="java.util.Date"/>
+	<parameter name="END_DATE" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT det.medicine_id,med.name,
+sum(det.quantity) quantity,sum(det.sales_price) total,
+mas.sales_date
+FROM sales_details det
+INNER JOIN medicine med ON med.id=det.medicine_id
+INNER JOIN sales_master mas ON mas.id=det.sales_id
+where mas.sales_date >=$P{START_DATE} && mas.sales_date <=$P{END_DATE}
+group by det.medicine_id
+order by med.name]]>
+	</queryString>
+	<field name="medicine_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Double"/>
+	<field name="sales_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="TOTAL_AMOUNT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="62607a8d-3fa5-4183-b66d-9efbec677c93" style="Title" x="155" y="3" width="396" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[HOSSAIN DRUG HOUSE]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="f8b3210c-4d70-46af-b200-38d1406a87b3" style="Title" x="5" y="1" width="150" height="68"/>
+				<imageExpression><![CDATA["hoshen.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="eaf5535d-2d7b-4754-a672-fbecd831ecdd" style="SubTitle" x="155" y="41" width="394" height="25" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE RANGE SALES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="210ea836-43fd-45f4-a43c-7e7e06bc8407" x="7" y="4" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE :: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="56c42ba1-2161-474c-a28b-9ef46ca55fff" x="245" y="4" width="42" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TO]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yy">
+				<reportElement uuid="e18dcfe7-03ab-4300-ad7c-3fdff1012ba0" x="109" y="4" width="136" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{START_DATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy">
+				<reportElement uuid="813246c5-a591-429b-90b2-f365823fcb92" x="287" y="4" width="213" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{END_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="2d8db2ea-f422-410b-84d2-24428c6b7400" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="ee504075-674b-4fc8-9de0-81e4e1df4cc8" style="Column header" x="0" y="19" width="320" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[MEDICINE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="24f1cd81-649a-4ac0-bfe4-d5ec0f200539" style="Column header" x="320" y="19" width="100" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[QUANTITY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0a2c372-3649-435a-ad4d-715aca3f9b51" style="Column header" x="424" y="19" width="130" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="f9b31250-9f42-495e-96ab-b7a7b288ce51" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="62641c78-9b83-42c4-9836-932eb58fa639" style="Detail" x="0" y="0" width="222" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="77a4dc36-379c-4949-9609-38930b926d7c" style="Detail" x="320" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="d92bda04-5ef8-4d9a-9925-13600bfa918f" style="Detail" x="424" y="0" width="130" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="6760f71f-0647-4fce-8f0c-bc097545efd7" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="f7ed8053-f27e-4fd5-9e41-39fcc2163436" style="Column header" x="433" y="0" width="80" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="2cb9074e-a089-4a11-894a-9c70a07f364e" style="Column header" x="513" y="0" width="40" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="230e1147-70c4-40e6-a1ae-768835bdb3ee" style="Column header" x="0" y="0" width="197" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="f5001035-a531-4f20-bb1e-800790afa24b" x="424" y="5" width="125" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a204de6d-fefb-4b05-bf13-6f70dcbf63f7" x="320" y="5" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL SALES :: ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

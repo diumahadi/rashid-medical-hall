@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CLIENT_PAYMENT_REPORT" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="052757b1-6731-47a0-9068-7705f92a82d5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="TITLE" class="java.lang.String"/>
+	<parameter name="CLIENT_ID" class="java.lang.Long"/>
+	<parameter name="CLIENT_NAME" class="java.lang.String"/>
+	<parameter name="CLIENT_FORMAT_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT client_id,paid_date,paid_amount
+FROM client_payment cp
+WHERE cp.client_id=$P{CLIENT_ID}
+ORDER BY cp.paid_date DESC]]>
+	</queryString>
+	<field name="client_id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paid_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paid_amount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="TOTAL_PAID" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{paid_amount}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="64032fef-9dcb-4fc8-873f-13d3da657f52" style="Title" x="154" y="2" width="396" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[HOSSAIN DRUG HOUSE]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="6b4f47e6-828e-4b3d-ab08-6ebd17bab104" style="Title" x="4" y="0" width="150" height="68"/>
+				<imageExpression><![CDATA["hoshen.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="d6e20ad9-9603-4ef1-bbe6-046a66c836a9" x="154" y="40" width="396" height="28"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="30fcfd17-ed80-40da-876d-b19c7f2cfa32" x="7" y="4" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENT ID ::  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="69a1df09-6081-4bc3-94e4-0eb5fc648abf" x="107" y="27" width="202" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CLIENT_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="97bc5f51-7b2f-4b10-a8b7-814adc6ce52b" x="7" y="27" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENT NAME ::  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bbc45aff-5f02-4256-8432-9ff180c1a5b6" x="107" y="4" width="202" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CLIENT_FORMAT_ID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="1f6e89f0-f491-4a6d-ae70-4cc3356c2476" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="bc7ca3d3-0f1a-4c12-8309-141b66f137f6" style="Column header" x="0" y="19" width="409" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[PAID DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="975441d4-4350-46d1-8898-2c98331a4327" style="Column header" x="409" y="19" width="146" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[PAID AMOUNT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="55882787-764d-4138-8e4a-651f30a27c3a" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="64cbedcf-eea0-4fde-8f93-5f66e3bc7f20" style="Detail" x="0" y="0" width="409" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{paid_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="60bdf973-6bb7-4303-b92e-65b4778886fc" style="Detail" x="409" y="0" width="146" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{paid_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="37a6c96e-e129-4340-9da2-796684443557" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4e9c2521-24f3-43c6-aa1e-3d4ec71ef7ff" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="9558c8d7-3920-4ddf-a969-eb197e092527" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="90a6e779-d3bd-48b9-a5d2-353c1a22824a" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="5b787264-0256-4ed7-83cf-b6f1fb34f319" x="409" y="4" width="144" height="25"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_PAID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b6198355-5bb0-4680-8846-091ab49d0350" style="Column header" x="187" y="4" width="222" height="25" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<text><![CDATA[TOTAL PAID = ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

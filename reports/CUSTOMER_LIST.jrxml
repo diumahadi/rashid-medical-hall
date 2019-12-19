@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CUSTOMER_LIST" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f4333eb2-da50-44f7-b498-9842e990d9cd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT id,first_name,gender,email,mobile,starting_due
+FROM `client`
+WHERE client_type=1
+ORDER BY first_name]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="first_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mobile" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="starting_due" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f7bd48f8-f4e5-40ce-b257-d320ab6ac196" style="Title" x="3" y="13" width="550" height="33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RASHID MEDICAL HALL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1dbde7d9-dd6b-4896-9e2e-b8a2ae580bab" style="SubTitle" x="3" y="46" width="550" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CUSTOMERS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="ec0c1369-ddea-42e1-8e8c-f156b219c149" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="23184352-7f78-40b7-8445-b187b810b0eb" style="Column header" x="0" y="19" width="92" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="153a0478-ca31-4888-95e0-312d59b94336" style="Column header" x="92" y="19" width="130" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d39e38ad-2eac-4b80-a35b-3d6c688f1f09" style="Column header" x="225" y="19" width="60" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[GENDER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b8776ad6-0429-4490-aaf9-f40826b25010" style="Column header" x="287" y="19" width="100" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="736828c3-5dd5-4057-b591-0c961b9ef34b" style="Column header" x="389" y="19" width="90" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[MOBILE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="180d7e46-ccd3-474e-a8e2-31ec9bfbf483" style="Column header" x="482" y="19" width="70" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[START DUE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="321647cc-19f3-45f0-b47d-26d82bbbc638" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField pattern="00000000">
+				<reportElement uuid="d4a20968-71fd-4465-99a9-7dd8bcc1a1a4" style="Detail" x="0" y="0" width="92" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b29021a7-53c2-4f72-b6ca-011e48805a6b" style="Detail" x="92" y="0" width="130" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{first_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c92e76a3-2f2d-4a6d-8d36-9ebbfbb95981" style="Detail" x="225" y="0" width="60" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="85d29857-b5f4-429d-b741-85d2406b2891" style="Detail" x="287" y="0" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4d4a136e-b918-41bf-9518-f25e57bfd78f" style="Detail" x="389" y="0" width="90" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="4b81f5dc-db05-4037-a8b5-87baca378ab0" style="Detail" x="482" y="0" width="70" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{starting_due}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="c2fc61ba-1cd0-4fdf-b266-ffb9e10e970e" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5c99165e-1703-4cca-b1be-311be638b71e" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="7877d501-42e5-43d2-b2fe-50518406e944" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="3b868f9d-b42b-4ada-9a12-acd12de1b641" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

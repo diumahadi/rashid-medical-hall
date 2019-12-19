@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MEDICINE_LIST" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65f8ec9e-3cf2-430f-8275-2473547240c9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT med.name medicineName,med.company_id,com.company_name,med.medicine_type,tp.name doze,
+med.unit_id,un.unit_name,med.created_at FROM medicine med
+inner join company com on com.company_id=med.company_id
+left join medicine_type tp on tp.id=med.medicine_type
+left join unit un on un.id=med.unit_id
+order by med.name]]>
+	</queryString>
+	<field name="medicineName" class="java.lang.String"/>
+	<field name="company_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="company_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="medicine_type" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="doze" class="java.lang.String"/>
+	<field name="unit_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unit_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="created_at" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d1133b8a-7f31-4122-a71f-ff973c9deeed" style="Title" x="146" y="1" width="396" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[ HOSSAIN DRUG HOUSE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4f30b6b1-12ef-45c9-9660-3ae05d551f1a" style="SubTitle" x="146" y="39" width="396" height="25" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEDICINES ]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="3675f771-ddc1-454e-ada4-325d023584e1" style="Title" x="2" y="1" width="144" height="69"/>
+				<imageExpression><![CDATA["hoshen.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="96650ff2-7a14-4c02-a4c2-13bb3b443333" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="4b6df0b5-d379-4fa2-927a-c56e87c459d4" style="Column header" x="0" y="19" width="172" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[MEDICINE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="81c86a3c-97fa-4e97-8da8-7b04ec93956f" style="Column header" x="172" y="19" width="145" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[COMPANY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4b663afc-400f-4d40-ab86-195e02e34dcc" style="Column header" x="317" y="19" width="89" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[DOZE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e76e44c0-ad49-4855-8fc1-d5b75724633e" style="Column header" x="406" y="19" width="77" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[UNIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cf55d9c4-24dd-4ea0-9c22-5cc5d3137b66" style="Column header" x="483" y="19" width="69" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[INSERTED]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="5ed96fc7-c183-466d-b7bc-ec252a92be2b" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b8cd45e1-85cc-45ec-94b6-fda40d2281e3" style="Detail" x="0" y="0" width="172" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{medicineName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0f809c34-45a7-43ff-93f0-585588e64c94" style="Detail" x="172" y="0" width="145" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{company_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="75581879-4b17-47eb-9926-edc12839ac9a" style="Detail" x="317" y="0" width="89" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{doze}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3b61e966-68c9-43fe-83ad-8102877564ab" style="Detail" x="406" y="0" width="77" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{unit_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy" isBlankWhenNull="true">
+				<reportElement uuid="d2496d60-e939-41fc-a110-74cc35848660" style="Detail" x="483" y="0" width="69" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{created_at}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="7e2cb9b6-b120-437f-b773-fe51474f0913" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="7d5bb785-6b78-40fa-a857-157c57bbfb58" style="Column header" x="433" y="0" width="80" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="61084753-7f4d-46aa-9d55-6fb809f2e9c6" style="Column header" x="513" y="0" width="40" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="8b31cd83-a07f-44b0-b4e2-2236c04d7156" style="Column header" x="0" y="0" width="197" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

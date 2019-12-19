@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DATE_RANGE_SALES_SUMMARY" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="275befcc-a6a8-4da4-86de-11e8f385d757">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="START_DATE" class="java.util.Date"/>
+	<parameter name="END_DATE" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT mas.sales_date,det.medicine_id,trim(med.name) name,sto.starting_stock,sto.stock,med.unit_purchase_price,
+med.unit_sales_price,(sto.stock*med.unit_purchase_price) purchase,
+(sto.stock*med.unit_sales_price) sales, SUM(det.quantity) quantity,
+SUM(det.purchase_price) purchase_price, SUM(det.sales_price) sales_price
+FROM sales_details det
+LEFT JOIN sales_master mas ON mas.id=det.sales_id
+LEFT JOIN medicine med ON med.id=det.medicine_id
+LEFT JOIN medicine_stock sto ON sto.medicine_id=det.medicine_id
+WHERE mas.sales_date >=$P{START_DATE} AND mas.sales_date <=$P{END_DATE}
+GROUP BY trim(med.name)]]>
+	</queryString>
+	<field name="sales_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="medicine_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="starting_stock" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stock" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unit_purchase_price" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unit_sales_price" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="purchase" class="java.lang.Double"/>
+	<field name="sales" class="java.lang.Double"/>
+	<field name="quantity" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="purchase_price" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sales_price" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="TOTAL_STOCK" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{stock}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_EST_SALES" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{sales}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_PURCHASE" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{purchase_price}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_SALES" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{sales_price}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_SOLD_QTY" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantity}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_STR_STOCK" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{starting_stock}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c2350ec5-6d49-4a59-94ba-84460a7bb787" style="SubTitle" x="155" y="39" width="394" height="25" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALES SUMMARY]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="c235a9b2-afc8-4056-9c3c-b19435ae5b9c" style="Title" x="5" y="-1" width="150" height="68"/>
+				<imageExpression><![CDATA["hoshen.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="fcc9878b-a964-43e1-9ccd-144e0f8db018" style="Title" x="155" y="1" width="396" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[HOSSAIN DRUG HOUSE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d189e5f0-f032-445a-b8f3-0ac3a861953b" style="Column header" x="5" y="5" width="38" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement uuid="2ac19f66-8b6b-40d9-9463-d65efb376277" x="52" y="5" width="80" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{START_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0d81c9cb-f222-45eb-8097-2c53d54888bb" style="Column header" x="132" y="5" width="38" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement uuid="ade0d045-743f-4ddd-b356-0a87799c25eb" x="172" y="5" width="131" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{END_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="5c690d25-5e0c-46c5-b067-c3db7eeb7d45" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="8e3cac5b-9a3c-4054-bd53-289f2f0c0d29" style="Column header" x="5" y="19" width="127" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[MEDICINE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="66a3db74-0e88-4d1a-b4c3-0acd40bd555c" style="Column header" x="199" y="19" width="64" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[STOCK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a6a73b6-cb94-4b45-be47-d2e88785873a" style="Column header" x="264" y="19" width="70" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[S. PRICE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="29f8b299-02a8-4246-8188-4e7f37f1b523" style="Column header" x="335" y="19" width="70" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[QTY.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e57c2655-7b66-41aa-aed6-eedf1132541f" style="Column header" x="408" y="19" width="70" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[PURCHASE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="df1695d8-98a6-462a-b64d-43e230bf38bc" style="Column header" x="480" y="19" width="70" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[SALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="13f2d552-6757-49d0-93f1-c585613c1e49" style="Column header" x="134" y="19" width="64" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[S.STOCK]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="be4ec18f-6f05-4b87-915e-23cff414ee8e" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="350a601f-f272-470b-8426-0e0beea26346" style="Detail" x="5" y="0" width="127" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="c479af71-2b8e-4657-ae44-fca274a04faa" style="Detail" x="199" y="0" width="64" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="56b062e4-bf84-4e38-b8ff-aa699a033c09" style="Detail" x="264" y="0" width="70" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{sales}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="b8d07a2e-9c53-4cd1-9c6d-bd5dc0164cf5" style="Detail" x="335" y="0" width="70" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="c01326b0-7ae4-40c5-b041-561a154ca996" style="Detail" x="408" y="0" width="70" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{purchase_price}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="32bd2476-a6df-47f3-92d0-2076f0b48029" style="Detail" x="480" y="0" width="70" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{sales_price}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="68ce6aa3-c823-4528-94be-72b694848d42" x="134" y="1" width="64" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{starting_stock}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="040cee5d-4e24-4068-b57f-d81525892212" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="c7359ab9-6bfc-4375-b1fa-9eda2035dcf9" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="81f9ff11-96a8-46fc-b399-e1a39de5830c" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="46daf367-2a29-4db2-807a-9c71a83a4b0b" style="Column header" x="5" y="2" width="127" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL : ]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement uuid="7032beec-39ec-47f9-bbb7-5284759cf8d5" x="199" y="2" width="64" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_STOCK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="c6c30dbb-0561-4bf5-8bfe-37483fc98576" x="264" y="2" width="69" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_EST_SALES}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="8883eb34-a8b2-4a0b-97cb-86fa1c91a093" x="335" y="2" width="70" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_SOLD_QTY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="57b1e4e9-a27e-4475-8988-b9bdbab24a43" x="408" y="2" width="70" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_PURCHASE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="7b257227-0faa-4ac0-b6f2-54349cfbb191" x="480" y="2" width="69" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_SALES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a244c6c5-b958-4053-be71-b10ca57bd522" x="134" y="2" width="63" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_STR_STOCK}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

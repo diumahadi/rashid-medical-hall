@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MEDICINE_BARCODES" columnCount="5" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="111" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="516627c0-bf69-444e-95b2-9a209f68803b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT med.id,LPAD(med.id,5,'0') newid,med.name,com.company_name
+FROM medicine med
+LEFT JOIN company com ON med.company_id=com.company_id
+ORDER BY med.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="newid" class="java.lang.String"/>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="company_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<line>
+				<reportElement uuid="c5da0a08-9240-4f8d-933b-6549bfacfe5a" positionType="FixRelativeToBottom" x="0" y="56" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="ac3fba82-1d33-4ca5-832c-09aa3a54bcb9" style="Detail" x="6" y="0" width="100" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["HDH-"+$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b401e84a-53f8-4918-af40-8066c3541fca" style="Detail" x="6" y="40" width="100" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="2b4c3158-320d-4305-9a00-27c88ec05369" x="20" y="15" width="70" height="25"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Codabar" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{newid}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<line>
+				<reportElement uuid="40fb5b7b-86fc-402e-9fd3-6a56d6b903f0" x="108" y="0" width="1" height="55"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

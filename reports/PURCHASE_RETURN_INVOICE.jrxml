@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PURCHASE_RETURN_INVOICE" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d914b8ce-56df-4bbf-9727-4fe107d2186d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="RETURN_ID" class="java.lang.Long"/>
+	<parameter name="REP_NAME" class="java.lang.String"/>
+	<parameter name="RETURN_DATE" class="java.util.Date"/>
+	<parameter name="FORMATTED_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT det.medicine_id,med.name,det.return_quantity,det.submit_quantity,det.submit_date
+FROM purchase_return_details det
+INNER JOIN medicine med ON med.id=det.medicine_id
+WHERE det.return_id=$P{RETURN_ID}
+ORDER BY med.name]]>
+	</queryString>
+	<field name="medicine_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="return_quantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[i return to rep]]></fieldDescription>
+	</field>
+	<field name="submit_quantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[rep return to me]]></fieldDescription>
+	</field>
+	<field name="submit_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="fa9481ee-e195-469d-bd6e-548c446e8711" style="Title" x="154" y="3" width="396" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[HOSSAIN DRUG HOUSE]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="815635f9-375d-445a-9190-71c52a53ad33" style="Title" x="4" y="1" width="150" height="68"/>
+				<imageExpression><![CDATA["hoshen.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="7b27dac3-112d-4663-b245-cb3bae9a3a04" style="SubTitle" x="154" y="41" width="394" height="25" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PURCHASE RETURN INVOICE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="771646c8-cebd-494c-aa66-21582bbd617b" x="6" y="7" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REP. NAME :: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e30deb04-20fd-4e34-a05e-106dcf147098" x="6" y="30" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RETURN DATE :: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1322ab87-bd94-4f53-8b6b-31085573d98a" x="344" y="7" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE ID: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ae05e7cf-ac5a-4dd2-a3ae-89929a307958" x="106" y="7" width="238" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REP_NAME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="cccfc688-e675-494b-b5fd-f81033af7284" x="106" y="30" width="238" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RETURN_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f0936134-5637-42db-9f1d-1e4109a67b31" x="444" y="7" width="104" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FORMATTED_ID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="4b5d5d33-e12e-45dd-aa8e-5cc5337a9dd2" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="fdbb57e3-775c-49ac-b1f9-997e83e04f92" style="Column header" x="6" y="19" width="244" height="15" forecolor="#000000"/>
+				<textElement/>
+				<text><![CDATA[MEDICINE NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ffd6ad80-a847-4692-a61c-aa71f55e862f" style="Column header" x="252" y="19" width="94" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[RETURN QTY.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79e082df-adfb-4d02-bea6-55436c7993a2" style="Column header" x="350" y="19" width="94" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[SUBMIT QTY.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a41d6b98-ecef-43b1-9130-aeef598a065e" style="Column header" x="444" y="19" width="111" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="01784745-87cb-481a-8c76-e13f8789d6fb" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="c7d69917-c6cb-4ded-907f-6ae80009e015" style="Detail" x="6" y="0" width="244" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9241852e-0dd7-4caa-9195-fb4ec51459fb" style="Detail" x="252" y="0" width="94" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{return_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c59b97e5-9f98-4107-9477-3b1156abbf2a" style="Detail" x="350" y="0" width="94" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{submit_quantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy">
+				<reportElement uuid="13ee4a36-5423-4bf3-b91e-373f4f195d0a" style="Detail" x="444" y="0" width="111" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{submit_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="51e3318f-a9c3-4e42-97d5-b89899bc918a" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a8d8c043-1205-457a-94ca-7f6484433181" style="Column header" x="433" y="0" width="80" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="aca92d68-a678-45c7-bc6f-7b586ea00216" style="Column header" x="513" y="0" width="40" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="e00df512-e50a-493a-9f6d-4c00107ecbc3" style="Column header" x="0" y="0" width="197" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

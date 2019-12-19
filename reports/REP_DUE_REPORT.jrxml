@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="REP_DUE_REPORT" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7302cf27-55ec-4458-afef-3d036a0a64f5">
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT a.clientName,a.mobile,a.totalDue
+FROM (
+SELECT mas.client_id,cl.first_name clientName,cl.mobile mobile,
+
+(SUM(mas.due_amount) -getClientPaid(mas.client_id)) totalDue
+FROM purchase_master mas
+LEFT JOIN CLIENT cl ON cl.id=mas.client_id
+GROUP BY mas.client_id
+order by cl.first_name
+) a
+WHERE a.totalDue>0]]>
+	</queryString>
+	<field name="clientName" class="java.lang.String"/>
+	<field name="mobile" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalDue" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement uuid="9d0e18e2-79ac-4b21-8263-26af0b7b930c" x="275" y="0" width="300" height="64"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="e754c62a-919b-4c92-834a-8310638ed85c" style="Title" x="0" y="13" width="263" height="33"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Green Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b8ea4167-a9a9-41e2-8efe-0bf32cba4e9d" style="SubTitle" x="100" y="46" width="174" height="22"/>
+				<textElement/>
+				<text><![CDATA[Leaf Green SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="ad8843f4-6897-4287-9885-ac5050892627" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="7e3aa5cd-7b2a-415f-bcf6-a599f03a3158" style="Column header" x="0" y="19" width="185" height="15"/>
+				<textElement/>
+				<text><![CDATA[clientName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c0863a0e-e7c2-415a-886d-21161b776fc4" style="Column header" x="185" y="19" width="185" height="15"/>
+				<textElement/>
+				<text><![CDATA[mobile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b39d7b50-6481-473f-a1b6-3dbc06927e40" style="Column header" x="370" y="19" width="185" height="15"/>
+				<textElement/>
+				<text><![CDATA[totalDue]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="b6a92898-3875-49d3-9de8-b1a6c788de62" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="b41d7834-4bfb-4843-89b6-958b0b7d4dd5" style="Detail" x="0" y="0" width="185" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{clientName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fabbfe20-1f6b-4264-b8f0-113261461f98" style="Detail" x="185" y="0" width="185" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cc7a6eed-0537-471b-96e4-3f084b9262fd" style="Detail" x="370" y="0" width="185" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{totalDue}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="9311d104-f926-4a07-954f-c9885a32c457" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4249bc14-7b9f-4469-9049-bfb0d6be52f9" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="7eb8fc45-ec6a-4eea-8eca-7c9fe56136ad" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="b6aa2e89-c8a1-434b-b430-bdb8235434be" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

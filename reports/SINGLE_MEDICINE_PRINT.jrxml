@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SINGLE_MEDICINE_PRINT" columnCount="5" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="111" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7bea1c8-f2a4-4668-b23a-9b77e865650d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="MEDICINE_ID" class="java.lang.Integer"/>
+	<parameter name="FORMAT_MEDICINE_ID" class="java.lang.String"/>
+	<parameter name="MEDICINE_NAME" class="java.lang.String"/>
+	<parameter name="TOTAL_COUNT" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT bar.medicine_id,med.name
+FROM print_single_medicine_barcode bar
+INNER JOIN medicine med ON med.id=bar.medicine_id
+WHERE bar.medicine_id= $P{MEDICINE_ID}
+LIMIT $P{TOTAL_COUNT}]]>
+	</queryString>
+	<field name="medicine_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<line>
+				<reportElement uuid="e6aef869-d3b2-40a7-8f6f-d3e9ce172726" positionType="FixRelativeToBottom" x="0" y="57" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="13f17184-0f1c-4ea4-bd0f-951cb684a66c" style="Detail" x="6" y="40" width="100" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="fc984442-333d-4be1-be8e-569504a9fee7" x="21" y="15" width="70" height="25"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="3of9" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$P{FORMAT_MEDICINE_ID}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement uuid="0c33fe25-e491-4d78-a2b4-5bac3a32f881" x="6" y="0" width="100" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["HDH-"+$P{MEDICINE_ID}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="621813e9-cc1e-4de9-9b65-4507d33d1edc" x="109" y="2" width="1" height="55"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

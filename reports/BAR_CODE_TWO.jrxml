@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BAR_CODE_TWO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95314d49-7a38-43ae-9058-54a0f69450ba">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT bar.medicine_id,med.name
+FROM print_single_medicine_barcode bar
+INNER JOIN medicine med ON med.id=bar.medicine_id
+LIMIT 5]]>
+	</queryString>
+	<field name="medicine_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement uuid="3af023b1-c328-41e2-a5b6-bf4df0cbc762" x="275" y="0" width="300" height="64"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="82ea06f1-c6e4-4b7e-9063-1905d07ca557" style="Title" x="0" y="13" width="263" height="33"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Green Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f72a0083-c8a4-46d5-a7a3-b7c29cee0efa" style="SubTitle" x="100" y="46" width="174" height="22"/>
+				<textElement/>
+				<text><![CDATA[Leaf Green SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="4e1d0fe2-ee96-4e38-9000-8f1c5d5b7a74" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="5ded0dab-de47-4477-8689-eea15dcd08de" style="Column header" x="0" y="19" width="277" height="15"/>
+				<textElement/>
+				<text><![CDATA[medicine_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="41bf894c-bdd2-46a2-af78-1520967082c4" style="Column header" x="277" y="19" width="277" height="15"/>
+				<textElement/>
+				<text><![CDATA[name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<line>
+				<reportElement uuid="9fc56091-4c2e-4dcf-9616-4c6cf90ebe95" positionType="FixRelativeToBottom" x="0" y="95" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="8bb19933-59f9-4aec-a905-f73b70ffb289" style="Detail" x="0" y="0" width="277" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{medicine_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="eee80181-5fec-4fb8-841a-66fee29beb87" style="Detail" x="277" y="0" width="277" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="57d68d80-24f1-4c97-9af8-90176f5851cf" x="0" y="15" width="277" height="50"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="2of7" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA["10000000000"]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="db62480d-7361-4a68-921c-040a247c57e8" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="fb0f8d16-cb59-4c97-922e-afaedb1aebec" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="dc99e1bd-9a09-4995-adbf-9731847d211d" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="29e9c020-239e-4a76-8f95-b86e10bafecd" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

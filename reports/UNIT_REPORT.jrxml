@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UNIT_REPORT" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6a59f8eb-dfca-4fd8-b8ae-290fad10013c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     unit.`id` AS unit_id,
+     unit.`unit_name` AS unit_unit_name,
+     unit.`display` AS unit_display,
+     unit.`created_by` AS unit_created_by,
+     unit.`created_at` AS unit_created_at
+FROM
+     `unit` unit]]>
+	</queryString>
+	<field name="unit_id" class="java.lang.Integer"/>
+	<field name="unit_unit_name" class="java.lang.String"/>
+	<field name="unit_display" class="java.lang.Integer"/>
+	<field name="unit_created_by" class="java.lang.Integer"/>
+	<field name="unit_created_at" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3d2e6dc2-81f6-466e-87e1-94f86d8450ad" style="Title" x="155" y="2" width="396" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[HOSSAIN DRUG HOUSE]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="d123169f-fd57-44c2-8fbb-d798599005a0" style="Title" x="5" y="0" width="150" height="68"/>
+				<imageExpression><![CDATA["hoshen.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="5562cc5f-8ade-4ef3-9d19-7787049fc1b6" style="SubTitle" x="155" y="40" width="396" height="25" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNITS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="41efb6f6-10db-4ba6-b584-472c8775311f" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="b45d02f3-6f83-4e68-b83a-693619182ecc" style="Column header" x="0" y="19" width="374" height="15"/>
+				<textElement/>
+				<text><![CDATA[UNIT TITLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f0c6c1d3-f2f4-4efe-87b6-2bcfe05c5355" style="Column header" x="374" y="19" width="181" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CREATED DATE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="73e4f0a9-68ed-435f-860e-74fa8dd433dd" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="183d2666-b291-4eec-8399-de3559f4b289" style="Detail" x="0" y="0" width="374" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{unit_unit_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy">
+				<reportElement uuid="ebf6b3ab-ac64-4fe4-926f-807fe05da6d6" style="Detail" x="374" y="0" width="181" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{unit_created_at}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="d75a2687-0200-4790-a742-dd6c370647e6" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="7a5959be-6a78-4926-bc61-ef88d56a4b62" style="Column header" x="433" y="0" width="80" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="ba383551-cd23-4738-87b2-a32a29a918c4" style="Column header" x="513" y="0" width="40" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="93346369-c603-491a-b291-9d1b5442d909" style="Column header" x="0" y="0" width="197" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
